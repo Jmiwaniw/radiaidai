@@ -30,13 +30,12 @@ const Hero = () => {
 
           {/* Headline */}
           <h1 className="font-display text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-primary-foreground mb-6 leading-tight animate-fade-up" style={{ animationDelay: "0.1s" }}>
-            Turning everyday X-rays into{" "}
+            Screen Smarter{" "}
             <span className="relative">
               <span className="text-gradient bg-gradient-to-r from-teal-light to-sky bg-clip-text text-transparent">
-                life-saving
+                Not Harder
               </span>
-            </span>{" "}
-            early cancer detection
+            </span>
           </h1>
 
           {/* Subheading */}

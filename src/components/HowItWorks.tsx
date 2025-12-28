@@ -1,5 +1,8 @@
-import { Upload, Brain, FileCheck, ArrowDown } from "lucide-react";
-import appDemo from "@/assets/app-demo.png";
+import { Upload, Brain, FileCheck, Globe } from "lucide-react";
+import demoUpload from "@/assets/demo-upload.png";
+import demoAnalyzing from "@/assets/demo-analyzing.png";
+import demoResults from "@/assets/demo-results.png";
+import demoLanguage from "@/assets/demo-language.png";
 
 const steps = [
   {
@@ -8,6 +11,8 @@ const steps = [
     title: "Capture or Upload",
     description: "Upload a digital radiograph or photograph an X-ray film using your smartphone.",
     features: ["Digital radiographs", "Smartphone photos", "Instant capture"],
+    image: demoUpload,
+    imageAlt: "RadiAID upload screen showing successful radiograph upload",
   },
   {
     icon: Brain,
@@ -15,6 +20,8 @@ const steps = [
     title: "AI Analysis",
     description: "Our lightweight deep-learning model analyzes the image in under one second, combining imaging features with optional patient metadata.",
     features: ["<1 second processing", "Age & sex integration", "Lesion location data"],
+    image: demoAnalyzing,
+    imageAlt: "RadiAID AI processing screen showing analysis in progress",
   },
   {
     icon: FileCheck,
@@ -22,6 +29,17 @@ const steps = [
     title: "Clear Results",
     description: "Receive a probability score (benign vs. malignant) with a visual heatmap highlighting suspicious regions—designed for non-specialist interpretation.",
     features: ["Probability score", "Visual heatmaps", "Actionable guidance"],
+    image: demoResults,
+    imageAlt: "RadiAID results screen showing malignancy probability and AI insights",
+  },
+  {
+    icon: Globe,
+    step: "04",
+    title: "Multi-Language Support",
+    description: "Available in multiple languages to ensure accessibility for healthcare providers around the world.",
+    features: ["8+ languages", "Local accessibility", "Global reach"],
+    image: demoLanguage,
+    imageAlt: "RadiAID language selection screen with multiple language options",
   },
 ];
 
@@ -45,22 +63,22 @@ const HowItWorks = () => {
             Simple. Fast. Lifesaving.
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Three easy steps from X-ray to actionable insight—designed for clinicians in any setting.
+            Four easy steps from X-ray to actionable insight—designed for clinicians in any setting.
           </p>
         </div>
 
-        {/* Main Content - Steps + Demo Image */}
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-          {/* Steps */}
-          <div>
-            {steps.map((step, index) => (
-              <div key={step.step} className="relative">
-                {/* Connector Line */}
-                {index < steps.length - 1 && (
-                  <div className="hidden md:block absolute left-[1.75rem] top-full w-0.5 h-8 bg-gradient-to-b from-teal/30 to-transparent" />
-                )}
-                
-                <div className="flex gap-4 mb-6 group">
+        {/* Steps with Images */}
+        <div className="max-w-6xl mx-auto space-y-16">
+          {steps.map((step, index) => (
+            <div 
+              key={step.step} 
+              className={`grid lg:grid-cols-2 gap-8 lg:gap-12 items-center ${
+                index % 2 === 1 ? 'lg:flex-row-reverse' : ''
+              }`}
+            >
+              {/* Content */}
+              <div className={`${index % 2 === 1 ? 'lg:order-2' : ''}`}>
+                <div className="flex gap-4 group">
                   {/* Step Number & Icon */}
                   <div className="flex-shrink-0">
                     <div className="relative">
@@ -75,17 +93,17 @@ const HowItWorks = () => {
 
                   {/* Content */}
                   <div className="flex-1">
-                    <h3 className="font-display text-lg font-semibold text-foreground mb-2">
+                    <h3 className="font-display text-xl font-semibold text-foreground mb-3">
                       {step.title}
                     </h3>
-                    <p className="text-sm text-muted-foreground mb-3 leading-relaxed">
+                    <p className="text-muted-foreground mb-4 leading-relaxed">
                       {step.description}
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {step.features.map((feature) => (
                         <span
                           key={feature}
-                          className="px-2 py-1 rounded-full bg-muted text-xs text-muted-foreground"
+                          className="px-3 py-1 rounded-full bg-muted text-sm text-muted-foreground"
                         >
                           {feature}
                         </span>
@@ -93,31 +111,25 @@ const HowItWorks = () => {
                     </div>
                   </div>
                 </div>
-
-                {/* Arrow for mobile */}
-                {index < steps.length - 1 && (
-                  <div className="flex justify-center lg:hidden mb-4">
-                    <ArrowDown className="w-4 h-4 text-teal/50" />
-                  </div>
-                )}
               </div>
-            ))}
-          </div>
 
-          {/* Demo Image */}
-          <div className="relative">
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-border">
-              <img 
-                src={appDemo} 
-                alt="RadiAID App Demo - Upload, Processing, Results, and Language Selection screens" 
-                className="w-full h-auto"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent pointer-events-none" />
+              {/* Image */}
+              <div className={`${index % 2 === 1 ? 'lg:order-1' : ''}`}>
+                <div className="relative flex justify-center">
+                  <div className="relative max-w-[280px]">
+                    <img 
+                      src={step.image} 
+                      alt={step.imageAlt}
+                      className="w-full h-auto drop-shadow-2xl"
+                    />
+                    {/* Decorative elements */}
+                    <div className="absolute -top-4 -right-4 w-24 h-24 rounded-full bg-teal/10 blur-2xl -z-10" />
+                    <div className="absolute -bottom-4 -left-4 w-32 h-32 rounded-full bg-sky/10 blur-2xl -z-10" />
+                  </div>
+                </div>
+              </div>
             </div>
-            {/* Decorative elements */}
-            <div className="absolute -top-4 -right-4 w-24 h-24 rounded-full bg-teal/10 blur-2xl" />
-            <div className="absolute -bottom-4 -left-4 w-32 h-32 rounded-full bg-sky/10 blur-2xl" />
-          </div>
+          ))}
         </div>
       </div>
     </section>

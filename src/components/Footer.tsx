@@ -1,6 +1,41 @@
-import { Mail, Heart } from "lucide-react";
+import { Mail, Heart, Send, ShieldCheck } from "lucide-react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
+import radiaidLogo from "@/assets/radiaid-logo.png";
 
 const Footer = () => {
+  const { toast } = useToast();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    organization: "",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Simulate form submission
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    
+    toast({
+      title: "Message Sent!",
+      description: "Thank you for reaching out. We'll get back to you soon.",
+    });
+    
+    setFormData({ name: "", email: "", organization: "", message: "" });
+    setIsSubmitting(false);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
   return (
     <footer id="contact" className="bg-navy py-16 relative overflow-hidden">
       {/* Decorative Elements */}
@@ -9,28 +44,97 @@ const Footer = () => {
       </div>
 
       <div className="container px-4 md:px-6 relative z-10">
-        <div className="max-w-4xl mx-auto">
-          {/* Mission Statement */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 mb-6">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-teal to-teal-light flex items-center justify-center shadow-glow">
-                <span className="text-xl font-display font-bold text-primary-foreground">R</span>
+        <div className="max-w-5xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 mb-12">
+            {/* Left Column - Info */}
+            <div>
+              {/* Logo and Mission */}
+              <div className="mb-8">
+                <div className="inline-flex items-center gap-3 mb-6">
+                  <img 
+                    src={radiaidLogo} 
+                    alt="RadiAID Logo" 
+                    className="h-12 w-auto"
+                  />
+                  <span className="font-display text-2xl font-bold text-primary-foreground">
+                    RadiAID
+                  </span>
+                </div>
+                <p className="text-lg text-primary-foreground/80 leading-relaxed mb-6">
+                  AI-powered early detection of osteosarcoma—anywhere. We believe every child deserves access to 
+                  timely cancer diagnosis, regardless of geography or resources.
+                </p>
+                
+                {/* Patent Pending Badge */}
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-teal/20 border border-teal/30 mb-6">
+                  <ShieldCheck className="w-4 h-4 text-teal-light" />
+                  <span className="text-sm font-medium text-teal-light">Patent Pending</span>
+                </div>
               </div>
-              <span className="font-display text-2xl font-bold text-primary-foreground">
-                RadiAID
-              </span>
-            </div>
-            <p className="text-lg text-primary-foreground/80 max-w-2xl mx-auto leading-relaxed">
-              AI-powered early detection of osteosarcoma—anywhere. We believe every child deserves access to 
-              timely cancer diagnosis, regardless of geography or resources.
-            </p>
-          </div>
 
-          {/* Contact */}
-          <div className="flex flex-col items-center gap-6 mb-12">
-            <div className="flex items-center gap-3 px-6 py-3 rounded-full bg-primary-foreground/10 border border-primary-foreground/20">
-              <Mail className="w-5 h-5 text-teal-light" />
-              <span className="text-primary-foreground/80">contact@radiaid.org</span>
+              {/* Contact Email */}
+              <div className="flex items-center gap-3 px-5 py-3 rounded-xl bg-primary-foreground/10 border border-primary-foreground/20 inline-flex">
+                <Mail className="w-5 h-5 text-teal-light" />
+                <span className="text-primary-foreground/80">contact@radiaid.org</span>
+              </div>
+            </div>
+
+            {/* Right Column - Contact Form */}
+            <div className="p-6 rounded-2xl bg-primary-foreground/5 border border-primary-foreground/10">
+              <h3 className="font-display text-xl font-semibold text-primary-foreground mb-4">
+                Get in Touch
+              </h3>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <Input
+                    name="name"
+                    placeholder="Your Name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/50"
+                  />
+                  <Input
+                    name="email"
+                    type="email"
+                    placeholder="Email Address"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/50"
+                  />
+                </div>
+                <Input
+                  name="organization"
+                  placeholder="Organization (Optional)"
+                  value={formData.organization}
+                  onChange={handleChange}
+                  className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/50"
+                />
+                <Textarea
+                  name="message"
+                  placeholder="Your Message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  rows={4}
+                  className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/50 resize-none"
+                />
+                <Button 
+                  type="submit" 
+                  disabled={isSubmitting}
+                  className="w-full bg-teal hover:bg-teal-light text-primary-foreground"
+                >
+                  {isSubmitting ? (
+                    "Sending..."
+                  ) : (
+                    <>
+                      Send Message
+                      <Send className="w-4 h-4 ml-2" />
+                    </>
+                  )}
+                </Button>
+              </form>
             </div>
           </div>
 

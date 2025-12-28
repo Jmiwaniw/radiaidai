@@ -1,4 +1,17 @@
 import { GraduationCap, Building, Award, BookOpen } from "lucide-react";
+import dukeRadiologyLogo from "@/assets/duke-radiology-logo.jpg";
+import dukeCancerLogo from "@/assets/duke-cancer-logo.png";
+import dukeGlobalHealthLogo from "@/assets/duke-global-health-logo.jpg";
+import lemelsonMitLogo from "@/assets/lemelson-mit-logo.png";
+import samsungSolveLogo from "@/assets/samsung-solve-logo.png";
+
+const partners = [
+  { name: "Duke Radiology", logo: dukeRadiologyLogo },
+  { name: "Duke Cancer Institute", logo: dukeCancerLogo },
+  { name: "Duke Global Health Institute", logo: dukeGlobalHealthLogo },
+  { name: "Lemelson-MIT", logo: lemelsonMitLogo },
+  { name: "Samsung Solve for Tomorrow", logo: samsungSolveLogo },
+];
 
 const Partners = () => {
   return (
@@ -27,7 +40,7 @@ const Partners = () => {
               Duke University
             </h3>
             <p className="text-sm text-muted-foreground">
-              Faculty mentorship and research support
+              Mentorship and research support
             </p>
           </div>
 
@@ -68,18 +81,22 @@ const Partners = () => {
           </div>
         </div>
 
-        {/* Logo Placeholder Area */}
-        <div className="max-w-4xl mx-auto p-8 rounded-2xl bg-muted/30 border border-dashed border-border">
-          <p className="text-center text-muted-foreground text-sm mb-6">
-            Partner & Sponsor Logos
+        {/* Partner Logos */}
+        <div className="max-w-5xl mx-auto">
+          <p className="text-center text-muted-foreground text-sm mb-8">
+            Our Partners & Sponsors
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-8">
-            {[1, 2, 3, 4, 5].map((i) => (
+          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
+            {partners.map((partner) => (
               <div
-                key={i}
-                className="w-24 h-12 rounded-lg bg-muted flex items-center justify-center"
+                key={partner.name}
+                className="group relative bg-card rounded-xl p-4 border border-border hover:border-teal/30 transition-all duration-300 hover:shadow-soft"
               >
-                <span className="text-xs text-muted-foreground">Logo {i}</span>
+                <img
+                  src={partner.logo}
+                  alt={partner.name}
+                  className="h-12 md:h-16 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                />
               </div>
             ))}
           </div>

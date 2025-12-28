@@ -1,12 +1,13 @@
 import { Upload, Brain, FileCheck, ArrowDown } from "lucide-react";
+import appDemo from "@/assets/app-demo.png";
 
 const steps = [
   {
     icon: Upload,
     step: "01",
     title: "Capture or Upload",
-    description: "Upload a digital radiograph or photograph an X-ray film using your smartphone. Our optional quality-box accessory ensures consistent lighting and alignment.",
-    features: ["Digital radiographs", "Smartphone photos", "Quality-box compatible"],
+    description: "Upload a digital radiograph or photograph an X-ray film using your smartphone.",
+    features: ["Digital radiographs", "Smartphone photos", "Instant capture"],
   },
   {
     icon: Brain,
@@ -48,57 +49,75 @@ const HowItWorks = () => {
           </p>
         </div>
 
-        {/* Steps */}
-        <div className="max-w-4xl mx-auto">
-          {steps.map((step, index) => (
-            <div key={step.step} className="relative">
-              {/* Connector Line */}
-              {index < steps.length - 1 && (
-                <div className="hidden md:block absolute left-[2.75rem] top-full w-0.5 h-16 bg-gradient-to-b from-teal/30 to-transparent" />
-              )}
-              
-              <div className="flex flex-col md:flex-row gap-6 mb-8 group">
-                {/* Step Number & Icon */}
-                <div className="flex-shrink-0">
-                  <div className="relative">
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-teal to-teal-light flex items-center justify-center shadow-glow group-hover:shadow-[0_0_50px_hsl(174_62%_40%/0.3)] transition-shadow">
-                      <step.icon className="w-6 h-6 text-primary-foreground" />
-                    </div>
-                    <span className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-foreground text-background text-xs font-bold flex items-center justify-center">
-                      {step.step}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="flex-1 p-6 rounded-2xl bg-card border border-border hover:border-teal/30 transition-all duration-300 hover:shadow-soft">
-                  <h3 className="font-display text-xl font-semibold text-foreground mb-3">
-                    {step.title}
-                  </h3>
-                  <p className="text-muted-foreground mb-4 leading-relaxed">
-                    {step.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {step.features.map((feature) => (
-                      <span
-                        key={feature}
-                        className="px-3 py-1 rounded-full bg-muted text-sm text-muted-foreground"
-                      >
-                        {feature}
+        {/* Main Content - Steps + Demo Image */}
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+          {/* Steps */}
+          <div>
+            {steps.map((step, index) => (
+              <div key={step.step} className="relative">
+                {/* Connector Line */}
+                {index < steps.length - 1 && (
+                  <div className="hidden md:block absolute left-[1.75rem] top-full w-0.5 h-8 bg-gradient-to-b from-teal/30 to-transparent" />
+                )}
+                
+                <div className="flex gap-4 mb-6 group">
+                  {/* Step Number & Icon */}
+                  <div className="flex-shrink-0">
+                    <div className="relative">
+                      <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-teal to-teal-light flex items-center justify-center shadow-glow group-hover:shadow-[0_0_50px_hsl(174_62%_40%/0.3)] transition-shadow">
+                        <step.icon className="w-6 h-6 text-primary-foreground" />
+                      </div>
+                      <span className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-foreground text-background text-xs font-bold flex items-center justify-center">
+                        {step.step}
                       </span>
-                    ))}
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="flex-1">
+                    <h3 className="font-display text-lg font-semibold text-foreground mb-2">
+                      {step.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground mb-3 leading-relaxed">
+                      {step.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {step.features.map((feature) => (
+                        <span
+                          key={feature}
+                          className="px-2 py-1 rounded-full bg-muted text-xs text-muted-foreground"
+                        >
+                          {feature}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Arrow for mobile */}
-              {index < steps.length - 1 && (
-                <div className="flex justify-center md:hidden mb-8">
-                  <ArrowDown className="w-5 h-5 text-teal/50" />
-                </div>
-              )}
+                {/* Arrow for mobile */}
+                {index < steps.length - 1 && (
+                  <div className="flex justify-center lg:hidden mb-4">
+                    <ArrowDown className="w-4 h-4 text-teal/50" />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Demo Image */}
+          <div className="relative">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-border">
+              <img 
+                src={appDemo} 
+                alt="RadiAID App Demo - Upload, Processing, Results, and Language Selection screens" 
+                className="w-full h-auto"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent pointer-events-none" />
             </div>
-          ))}
+            {/* Decorative elements */}
+            <div className="absolute -top-4 -right-4 w-24 h-24 rounded-full bg-teal/10 blur-2xl" />
+            <div className="absolute -bottom-4 -left-4 w-32 h-32 rounded-full bg-sky/10 blur-2xl" />
+          </div>
         </div>
       </div>
     </section>

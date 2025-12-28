@@ -35,9 +35,7 @@ const Navbar = () => {
         <nav className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <a href="#" className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal to-teal-light flex items-center justify-center shadow-glow">
-              <span className="text-xl font-display font-bold text-primary-foreground">R</span>
-            </div>
+            <img src="/radiaid-logo.png" alt="RadiAID Logo" className="w-10 h-10 rounded-xl shadow-glow" />
             <span className={`font-display text-xl font-bold ${isScrolled ? "text-foreground" : "text-primary-foreground"}`}>
               RadiAID
             </span>

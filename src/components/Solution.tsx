@@ -110,7 +110,7 @@ const Solution = () => {
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-sky mt-2 flex-shrink-0" />
-                  <span>Optional quality-box accessory ensures consistency</span>
+                  <span>AI-powered analysis in under one second</span>
                 </li>
               </ul>
             </div>

@@ -1,13 +1,11 @@
 import { GraduationCap } from "lucide-react";
 
 const teamMembers = [
-  { name: "Hasini Kanthi", role: "Team Lead" },
-  { name: "Isaac Yuan", role: "ML Engineer" },
-  { name: "Hila Belinson", role: "Product Lead" },
-  { name: "Jacob Iwaniw", role: "Software Engineer" },
-  { name: "Sathvik Talluri", role: "Data Scientist" },
-  { name: "Viraaj Minhas", role: "Hardware Lead" },
-  { name: "Protima Mukherjee", role: "Clinical Advisor" },
+  { name: "Hasini Kanthi", role: "CEO" },
+  { name: "Isaac Yuan", role: "CTO" },
+  { name: "Hila Belinson", role: "CFO" },
+  { name: "Sathvik Talluri", role: "COO" },
+  { name: "Jacob Iwaniw", role: "Chief Engineer" },
 ];
 
 const mentors = [
@@ -36,7 +34,7 @@ const Team = () => {
             Driven by Purpose
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            A multidisciplinary team of engineers, scientists, and clinicians united by a shared mission.
+            A team of students united by a shared mission.
           </p>
         </div>
 
@@ -45,7 +43,7 @@ const Team = () => {
           <h3 className="font-display text-lg font-semibold text-foreground text-center mb-8">
             Core Team
           </h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {teamMembers.map((member) => (
               <div
                 key={member.name}
@@ -69,7 +67,7 @@ const Team = () => {
         <div className="max-w-2xl mx-auto">
           <h3 className="font-display text-lg font-semibold text-foreground text-center mb-8 flex items-center justify-center gap-2">
             <GraduationCap className="w-5 h-5 text-teal" />
-            Faculty Mentors
+            Mentors
           </h3>
           <div className="grid md:grid-cols-2 gap-6">
             {mentors.map((mentor) => (

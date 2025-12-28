@@ -56,17 +56,25 @@ const Hero = () => {
             </Button>
           </div>
 
-          {/* Stats Preview */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 animate-fade-up" style={{ animationDelay: "0.4s" }}>
+          {/* 3 E's - Guiding Principles */}
+          <div className="grid md:grid-cols-3 gap-6 mt-16 animate-fade-up" style={{ animationDelay: "0.4s" }}>
             {[
-              { value: "94%", label: "Accuracy" },
-              { value: "<1s", label: "Inference Time" },
-              { value: "<2MB", label: "Model Size" },
-              { value: "3×", label: "Lives at Risk" },
-            ].map((stat) => (
-              <div key={stat.label} className="p-4 rounded-xl bg-primary-foreground/5 backdrop-blur-md border border-primary-foreground/10">
-                <div className="text-2xl md:text-3xl font-display font-bold text-teal-light">{stat.value}</div>
-                <div className="text-sm text-primary-foreground/60">{stat.label}</div>
+              {
+                title: "Enable",
+                description: "Early detection using X-ray machines that already exist in clinics worldwide.",
+              },
+              {
+                title: "Enhance",
+                description: "Diagnostic confidence for healthcare providers with limited resources.",
+              },
+              {
+                title: "Ensure",
+                description: "That children receive the treatment they need before it's too late.",
+              },
+            ].map((principle) => (
+              <div key={principle.title} className="p-6 rounded-2xl bg-primary-foreground/5 backdrop-blur-md border border-primary-foreground/10 text-left">
+                <div className="text-2xl md:text-3xl font-display font-bold text-teal-light mb-2">{principle.title}</div>
+                <p className="text-sm text-primary-foreground/70 leading-relaxed">{principle.description}</p>
               </div>
             ))}
           </div>

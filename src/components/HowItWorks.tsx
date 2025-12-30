@@ -67,69 +67,72 @@ const HowItWorks = () => {
           </p>
         </div>
 
-        {/* Steps with Images */}
-        <div className="max-w-6xl mx-auto space-y-16">
-          {steps.map((step, index) => (
-            <div 
-              key={step.step} 
-              className={`grid lg:grid-cols-2 gap-8 lg:gap-12 items-center ${
-                index % 2 === 1 ? 'lg:flex-row-reverse' : ''
-              }`}
-            >
-              {/* Content */}
-              <div className={`${index % 2 === 1 ? 'lg:order-2' : ''}`}>
-                <div className="flex gap-4 group">
-                  {/* Step Number & Icon */}
-                  <div className="flex-shrink-0">
-                    <div className="relative">
-                      <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-teal to-teal-light flex items-center justify-center shadow-glow group-hover:shadow-[0_0_50px_hsl(174_62%_40%/0.3)] transition-shadow">
-                        <step.icon className="w-6 h-6 text-primary-foreground" />
-                      </div>
-                      <span className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-foreground text-background text-xs font-bold flex items-center justify-center">
-                        {step.step}
-                      </span>
+        {/* Steps with Images - Alternating Layout */}
+        <div className="max-w-6xl mx-auto space-y-24">
+          {steps.map((step, index) => {
+            const isEven = index % 2 === 0;
+            
+            return (
+              <div 
+                key={step.step} 
+                className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-8 lg:gap-16 items-center`}
+              >
+                {/* Phone Image */}
+                <div className="flex-1 flex justify-center">
+                  <div className="relative">
+                    {/* Glow effect behind phone */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-teal/20 to-sky/20 blur-3xl scale-150 -z-10" />
+                    
+                    {/* Phone mockup container */}
+                    <div className="relative max-w-[260px] md:max-w-[280px]">
+                      <img 
+                        src={step.image} 
+                        alt={step.imageAlt}
+                        className="w-full h-auto drop-shadow-2xl rounded-[2rem]"
+                      />
                     </div>
                   </div>
+                </div>
 
-                  {/* Content */}
-                  <div className="flex-1">
-                    <h3 className="font-display text-xl font-semibold text-foreground mb-3">
-                      {step.title}
-                    </h3>
-                    <p className="text-muted-foreground mb-4 leading-relaxed">
-                      {step.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {step.features.map((feature) => (
-                        <span
-                          key={feature}
-                          className="px-3 py-1 rounded-full bg-muted text-sm text-muted-foreground"
-                        >
-                          {feature}
+                {/* Content */}
+                <div className="flex-1 max-w-xl">
+                  <div className="flex items-start gap-4">
+                    {/* Step Icon */}
+                    <div className="flex-shrink-0">
+                      <div className="relative">
+                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-teal to-teal-light flex items-center justify-center shadow-glow">
+                          <step.icon className="w-6 h-6 text-primary-foreground" />
+                        </div>
+                        <span className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-foreground text-background text-xs font-bold flex items-center justify-center">
+                          {step.step}
                         </span>
-                      ))}
+                      </div>
+                    </div>
+
+                    {/* Text Content */}
+                    <div className="flex-1">
+                      <h3 className="font-display text-2xl font-semibold text-foreground mb-3">
+                        {step.title}
+                      </h3>
+                      <p className="text-muted-foreground mb-5 leading-relaxed text-lg">
+                        {step.description}
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {step.features.map((feature) => (
+                          <span
+                            key={feature}
+                            className="px-4 py-1.5 rounded-full bg-teal-muted text-teal text-sm font-medium"
+                          >
+                            {feature}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-
-              {/* Image */}
-              <div className={`${index % 2 === 1 ? 'lg:order-1' : ''}`}>
-                <div className="relative flex justify-center">
-                  <div className="relative max-w-[280px]">
-                    <img 
-                      src={step.image} 
-                      alt={step.imageAlt}
-                      className="w-full h-auto drop-shadow-2xl"
-                    />
-                    {/* Decorative elements */}
-                    <div className="absolute -top-4 -right-4 w-24 h-24 rounded-full bg-teal/10 blur-2xl -z-10" />
-                    <div className="absolute -bottom-4 -left-4 w-32 h-32 rounded-full bg-sky/10 blur-2xl -z-10" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

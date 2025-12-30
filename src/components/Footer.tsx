@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import radiaidLogo from "@/assets/radiaid-logo.png";
 
 const Footer = () => {
@@ -20,16 +21,29 @@ const Footer = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for reaching out. We'll get back to you soon.",
-    });
-    
-    setFormData({ name: "", email: "", organization: "", message: "" });
-    setIsSubmitting(false);
+    try {
+      const { error } = await supabase.functions.invoke('send-contact-email', {
+        body: formData,
+      });
+
+      if (error) throw error;
+      
+      toast({
+        title: "Message Sent!",
+        description: "Thank you for reaching out. We'll get back to you soon.",
+      });
+      
+      setFormData({ name: "", email: "", organization: "", message: "" });
+    } catch (error) {
+      console.error("Error sending message:", error);
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -75,7 +89,7 @@ const Footer = () => {
               {/* Contact Email */}
               <div className="flex items-center gap-3 px-5 py-3 rounded-xl bg-primary-foreground/10 border border-primary-foreground/20 inline-flex">
                 <Mail className="w-5 h-5 text-teal-light" />
-                <span className="text-primary-foreground/80">contact@radiaid.org</span>
+                <span className="text-primary-foreground/80">radiaid.ai@gmail.com</span>
               </div>
             </div>
 

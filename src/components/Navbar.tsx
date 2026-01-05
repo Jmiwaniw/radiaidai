@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 
 const navLinks = [
-  { label: "Problem", href: "#problem" },
-  { label: "Solution", href: "#solution" },
-  { label: "How It Works", href: "#how-it-works" },
-  { label: "Technology", href: "#technology" },
-  { label: "Impact", href: "#impact" },
-  { label: "Team", href: "#team" },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,49 +23,56 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const isHomePage = location.pathname === "/";
+  const showTransparent = isHomePage && !isScrolled;
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-background/95 backdrop-blur-lg shadow-soft border-b border-border"
-          : "bg-transparent"
+        showTransparent
+          ? "bg-transparent"
+          : "bg-background border-b border-border"
       }`}
     >
       <div className="container px-4 md:px-6">
         <nav className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2">
-            <img src="/radiaid-logo.png" alt="RadiAID Logo" className="w-10 h-10 rounded-xl shadow-glow" />
-            <span className={`font-display text-xl font-bold ${isScrolled ? "text-foreground" : "text-primary-foreground"}`}>
+          <Link to="/" className="flex items-center gap-2">
+            <img src="/radiaid-logo.png" alt="RadiAID Logo" className="w-10 h-10 rounded-xl" />
+            <span className={`font-display text-xl font-bold ${showTransparent ? "text-primary-foreground" : "text-foreground"}`}>
               RadiAID
             </span>
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.label}
-                href={link.href}
+                to={link.href}
                 className={`text-sm font-medium transition-colors hover:text-teal ${
-                  isScrolled ? "text-foreground/70" : "text-primary-foreground/80"
+                  location.pathname === link.href
+                    ? "text-teal"
+                    : showTransparent
+                    ? "text-primary-foreground/80"
+                    : "text-foreground/70"
                 }`}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </div>
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button variant={isScrolled ? "teal" : "hero"} size="default" asChild>
-              <a href="#contact">Get in Touch</a>
+            <Button variant={showTransparent ? "hero" : "teal"} size="default" asChild>
+              <Link to="/contact">Get in Touch</Link>
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className={`md:hidden p-2 ${isScrolled ? "text-foreground" : "text-primary-foreground"}`}
+            className={`md:hidden p-2 ${showTransparent ? "text-primary-foreground" : "text-foreground"}`}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -75,21 +82,25 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-border/50 bg-background/95 backdrop-blur-lg rounded-b-2xl animate-fade-in">
+          <div className="md:hidden py-4 border-t border-border bg-background rounded-b-2xl">
             <div className="flex flex-col gap-2">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.label}
-                  href={link.href}
-                  className="px-4 py-3 text-sm font-medium text-foreground/70 hover:text-teal hover:bg-muted rounded-lg transition-colors"
+                  to={link.href}
+                  className={`px-4 py-3 text-sm font-medium hover:bg-muted rounded-lg transition-colors ${
+                    location.pathname === link.href
+                      ? "text-teal bg-muted"
+                      : "text-foreground/70"
+                  }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
               <div className="px-4 pt-2">
                 <Button variant="teal" size="lg" className="w-full" asChild>
-                  <a href="#contact">Get in Touch</a>
+                  <Link to="/contact">Get in Touch</Link>
                 </Button>
               </div>
             </div>

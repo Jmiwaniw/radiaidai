@@ -45,15 +45,8 @@ const steps = [
 
 const HowItWorks = () => {
   return (
-    <section id="how-it-works" className="py-20 md:py-32 bg-background relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-[0.02]">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }} />
-      </div>
-
-      <div className="container px-4 md:px-6 relative z-10">
+    <section id="how-it-works" className="py-20 md:py-32 bg-background">
+      <div className="container px-4 md:px-6">
         {/* Section Header */}
         <div className="max-w-3xl mx-auto text-center mb-16">
           <span className="inline-block px-4 py-1.5 rounded-full bg-teal-muted text-teal text-sm font-medium mb-4">
@@ -68,7 +61,7 @@ const HowItWorks = () => {
         </div>
 
         {/* Steps with Images - Alternating Layout */}
-        <div className="max-w-6xl mx-auto space-y-24">
+        <div className="max-w-6xl mx-auto space-y-20">
           {steps.map((step, index) => {
             const isEven = index % 2 === 0;
             
@@ -79,18 +72,12 @@ const HowItWorks = () => {
               >
                 {/* Phone Image */}
                 <div className="flex-1 flex justify-center">
-                  <div className="relative">
-                    {/* Glow effect behind phone */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-teal/20 to-sky/20 blur-3xl scale-150 -z-10" />
-                    
-                    {/* Phone mockup container */}
-                    <div className="relative max-w-[260px] md:max-w-[280px]">
-                      <img 
-                        src={step.image} 
-                        alt={step.imageAlt}
-                        className="w-full h-auto drop-shadow-2xl rounded-[2rem]"
-                      />
-                    </div>
+                  <div className="relative max-w-[260px] md:max-w-[280px]">
+                    <img 
+                      src={step.image} 
+                      alt={step.imageAlt}
+                      className="w-full h-auto rounded-[2rem] shadow-lg"
+                    />
                   </div>
                 </div>
 
@@ -100,7 +87,7 @@ const HowItWorks = () => {
                     {/* Step Icon */}
                     <div className="flex-shrink-0">
                       <div className="relative">
-                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-teal to-teal-light flex items-center justify-center shadow-glow">
+                        <div className="w-14 h-14 rounded-xl bg-teal flex items-center justify-center">
                           <step.icon className="w-6 h-6 text-primary-foreground" />
                         </div>
                         <span className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-foreground text-background text-xs font-bold flex items-center justify-center">

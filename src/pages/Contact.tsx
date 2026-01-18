@@ -1,56 +1,8 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Mail, MapPin, Send } from "lucide-react";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+import { Mail, MapPin } from "lucide-react";
 
 const Contact = () => {
-  const { toast } = useToast();
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    organization: "",
-    message: "",
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    try {
-      const { error } = await supabase.functions.invoke('send-contact-email', {
-        body: formData,
-      });
-
-      if (error) throw error;
-      
-      toast({
-        title: "Message Sent!",
-        description: "Thank you for reaching out. We'll get back to you soon.",
-      });
-      
-      setFormData({ name: "", email: "", organization: "", message: "" });
-    } catch (error) {
-      console.error("Error sending message:", error);
-      toast({
-        title: "Error",
-        description: "Failed to send message. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -69,29 +21,34 @@ const Contact = () => {
             </p>
           </div>
 
-          <div className="max-w-4xl mx-auto grid lg:grid-cols-2 gap-12">
+          <div className="max-w-2xl mx-auto">
             {/* Contact Info */}
-            <div>
-              <h2 className="font-display text-2xl font-semibold text-foreground mb-6">
+            <div className="p-8 rounded-2xl bg-card border border-border">
+              <h2 className="font-display text-2xl font-semibold text-foreground mb-8 text-center">
                 Contact Information
               </h2>
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-teal-muted flex items-center justify-center flex-shrink-0">
-                    <Mail className="w-5 h-5 text-teal" />
+                  <div className="w-12 h-12 rounded-lg bg-teal-muted flex items-center justify-center flex-shrink-0">
+                    <Mail className="w-6 h-6 text-teal" />
                   </div>
                   <div>
                     <h3 className="font-medium text-foreground mb-1">Email</h3>
-                    <p className="text-muted-foreground">radiaid.ai@gmail.com</p>
+                    <a 
+                      href="mailto:radiaid.ai@gmail.com" 
+                      className="text-teal hover:underline text-lg"
+                    >
+                      radiaid.ai@gmail.com
+                    </a>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-teal-muted flex items-center justify-center flex-shrink-0">
-                    <MapPin className="w-5 h-5 text-teal" />
+                  <div className="w-12 h-12 rounded-lg bg-teal-muted flex items-center justify-center flex-shrink-0">
+                    <MapPin className="w-6 h-6 text-teal" />
                   </div>
                   <div>
                     <h3 className="font-medium text-foreground mb-1">Location</h3>
-                    <p className="text-muted-foreground">Durham, NC</p>
+                    <p className="text-muted-foreground text-lg">Durham, NC</p>
                   </div>
                 </div>
               </div>
@@ -100,65 +57,9 @@ const Contact = () => {
                 <h3 className="font-medium text-foreground mb-3">Looking to Partner?</h3>
                 <p className="text-sm text-muted-foreground">
                   We're actively seeking partnerships with healthcare organizations, research institutions, 
-                  and NGOs working in pediatric oncology and global health.
+                  and NGOs working in pediatric oncology and global health. Reach out to us via email!
                 </p>
               </div>
-            </div>
-
-            {/* Contact Form */}
-            <div className="p-8 rounded-2xl bg-card border border-border">
-              <h2 className="font-display text-xl font-semibold text-foreground mb-6">
-                Send a Message
-              </h2>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <Input
-                    name="name"
-                    placeholder="Your Name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                  />
-                  <Input
-                    name="email"
-                    type="email"
-                    placeholder="Email Address"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <Input
-                  name="organization"
-                  placeholder="Organization (Optional)"
-                  value={formData.organization}
-                  onChange={handleChange}
-                />
-                <Textarea
-                  name="message"
-                  placeholder="Your Message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={5}
-                  className="resize-none"
-                />
-                <Button 
-                  type="submit" 
-                  disabled={isSubmitting}
-                  variant="teal"
-                  className="w-full"
-                >
-                  {isSubmitting ? (
-                    "Sending..."
-                  ) : (
-                    <>
-                      Send Message
-                      <Send className="w-4 h-4 ml-2" />
-                    </>
-                  )}
-                </Button>
-              </form>
             </div>
           </div>
         </div>
